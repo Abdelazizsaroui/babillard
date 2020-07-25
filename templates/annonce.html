@@ -1,0 +1,20 @@
+{% extends 'home.html' %}
+
+{% block main %}
+
+	<div class="row justify-content-center my-5">
+	  <div class="col-md-9 border-bottom">
+	    <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 1 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg><strong> Annonce</strong></h4>
+	  </div>
+	</div>
+
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<h4>{{annonce.title}}</h4>
+			<p style="font-weight: 600;" class="my-4">Annonce de : <a href="{% url 'page' annonce.page.id %}">{{annonce.page.name}} [ {{annonce.page.code}} ]</a></p>
+			<hr>
+			{{annonce.content|safe}}
+		</div>
+	</div>
+
+{% endblock main %}

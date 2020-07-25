@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <div class="container py-5">
+        <div class="col-md-6 col-lg-4 mx-auto py-5">
+        <a href="{% url 'home' %}"><h1 class="text-primary"><strong>Babillard</strong> </h1></a>
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            <p class="text-center m-0">Nom d'utilisateur ou mot de passe non valides, veulliez réessayer</p>
+        </div>
+        {% endif %}
+        <form method="POST" class="mt-4">
+            {% csrf_token %}
+            <div class="input-group shadow-sm">
+            <div class="input-group-prepend">
+                <span class="input-group-text text-primary bg-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </span>
+            </div>
+            <input type="text" name="username" id="id_username" class="form-control form-control-lg" placeholder="Nom d'utilisateur">
+            </div>
+            <div class="input-group mt-4 shadow-sm">
+            <div class="input-group-prepend">
+            <span class="input-group-text text-primary bg-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </span>
+             </div>
+            <input type="password" name="password" id="id_password" class="form-control form-control-lg" placeholder="Mot de passe">
+            </div>
+          <button class="btn btn-primary btn-lg btn-block mt-4 shadow-sm" type="submit">Se connecter</button>
+        </form>
+        <p class="text-center mt-3 small text-muted">
+        <a href="#">Mot de passe oublié?</a>
+        </p>
+        <hr>
+        <a href="{% url 'register' %}" class="btn btn-outline-secondary btn-lg btn-block mt-4 shadow-sm text-muted">Créer un compte</a>     
+        </div>
+    </div>
+
+{% endblock content %}

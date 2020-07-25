@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+
+    <title>Babillard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&amp;subset=latin">
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    {% block style %} {% endblock style %}
+    <style type="text/css">
+    .navbar-border {
+      border-top: 4px solid #0096D6;
+    }
+    .asteriskField {
+        display: none;
+    }
+    .system-message {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+    }
+    label {
+      font-weight: 600;
+    }
+  </style>
+
+  </head>
+  <body>
+    <div class="container-fluid px-0">
+        
+      {% if messages %}
+      <div class="row">
+      {% for message in messages %}
+      <div class="col-md-4 alert alert-{{ message.tags }} text-center rounded system-message alert-dismissible fade show shadow" role="alert">
+        {{ message|safe }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      {% endfor %}
+      </div>
+      {% endif %}
+
+      {% block content %} {% endblock content %} 
+     
+    </div>
+    <script src="{% static 'js/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+
+    {% block script %} {% endblock script %}
+
+  </body>
+</html>

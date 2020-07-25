@@ -1,0 +1,81 @@
+{% extends 'home.html' %}
+
+{% block main %}
+
+	    <div class="row justify-content-center mt-5">
+	      <div class="col-md-9 border-bottom">
+	        <h4><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 1 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg><strong> Page</strong></h4>
+	      </div>
+	    </div>
+	    <div class="row justify-content-center py-5">
+	    <div class="col-md-8 bg-light shadow-sm rounded p-3 border">
+	    <div class="row">
+	    <div class="col-md-9">
+	      <p class="m-0"><h3 class="d-inline">{{page.name}}</h3>
+	      </p>
+	      <h3 class="badge badge-dark p-2 rounded-0"><strong>{{page.code}}</strong></h3>
+	      {% if page.organisme %}
+	      <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> {{page.organisme}}</p>
+	      {% endif %}
+	      </div>
+	      <div class="col-md-3 text-right">
+	      	{% if user.is_authenticated %}
+	      	{% if page.private %}
+	      	<span class="badge badge-warning mb-3">Page Privée ({{page.members.all.count}} Membres)</span>
+	      	{% endif %}
+	      	{% if page.user == user %}
+	      	<a href="{% url 'create-annonce' page.id %}" class="btn btn-sm btn-outline-primary rounded">Publier</a>
+	      	{% if page.private %}
+	      	<a type="button" data-toggle="modal" data-target="#add-members" class="btn btn-sm btn-outline-primary rounded mt-3">Ajouter des membres</a>
+
+	      	<div class="modal fade" id="add-members" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	      	  <div class="modal-dialog modal-dialog-centered" role="document">
+	      	    <div class="modal-content">
+	      	      <div class="modal-header border-bottom">
+	      	        <h5 class="modal-title" id="exampleModalCenterTitle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 2 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><strong> Ajouter des membres</strong></h5>
+	      	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	      	          <span aria-hidden="true">&times;</span>
+	      	        </button>
+	      	      </div>
+	      	      <form method="POST" action="{% url 'add-memb' page.id %}">
+	      	      	{% csrf_token %}
+	      	      <div class="modal-body">
+	      	      	<p class="text-center"><small>Entrer la liste des emails des personnes à ajouter comme membres de votre page séparés par virgule. Les personnes qui ont un compte vont être ajoutés, ceux qui n'ont pas de compte vont être ajoutés automatiquement lors de leur inscription.</small></p>
+	      	          <textarea class="form-control" rows="5" placeholder="Les emails des membres à ajouter séparés par virgule" name="mmb_list"></textarea>
+	      	      </div>
+	      	      <div class="modal-footer">
+	      	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+	      	        <button type="submit" class="btn btn-primary">Enregistrer</button>
+	      	      </div>
+	      	      </form>
+	      	    </div>
+	      	  </div>
+	      	</div>
+
+	      	{% endif %}
+	      	{% elif user in page.abonn.all %}
+	      	<a href="{% url 'abonn' page.id %}" class="btn btn-outline-primary btn-sm rounded">Se désabonner</a>
+	      	{% else %}
+	      	<a href="{% url 'abonn' page.id %}" class="btn btn-outline-primary btn-sm rounded">S'abonner</a>
+	      	{% endif %}
+	      	{% endif %}
+	      </div>
+	      </div>
+	    </div>
+		</div>
+
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				{% for ann in page.annonce_set.all %}
+				<a href="{% url 'annonce' ann.id %}"><h5 class="font-weight-bold">{{ann.title}}</h5></a>
+				<p><small><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 1 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> {{ann.date_posted}}</small>
+				{% if ann.page.user == user %}
+				<span class="float-right"><a href="{% url 'update-annonce' ann.id %}" class="text-success"><small>modifier</small></a> • <a href="" class="text-danger"><small>supprimer</small></a></span>
+				{% endif %}
+				</p>
+				<hr>
+				{% endfor %}
+			</div>
+		</div>
+
+{% endblock main %}
