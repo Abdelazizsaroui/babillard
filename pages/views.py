@@ -63,6 +63,8 @@ def update_annonce(request, ann_id):
 			ann.title = title
 			content = request.POST.get('content')
 			ann.content = content
+			date_archive = request.POST.get('date_archive')
+			ann.date_archive = date_archive
 			ann.save()
 			messages.success(request, f"Vous avez modifier l'annonce <strong>{ann.title}</strong>")
 			return redirect(reverse('annonce', kwargs={'ann_id': ann_id}))

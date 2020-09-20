@@ -6,7 +6,7 @@ class AnnonceForm(forms.ModelForm):
 
 	class Meta:
 		model = Annonce
-		fields = ['title', 'content']
+		fields = ['title', 'content', 'date_archive']
 		widgets = {
             'content': SummernoteWidget()
         }

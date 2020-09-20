@@ -20,6 +20,8 @@ class Annonce(models.Model):
 	content = models.TextField(verbose_name="Contenu")
 	page = models.ForeignKey(Page, on_delete=models.CASCADE)
 	date_posted = models.DateTimeField(auto_now_add=True)
+	date_archive = models.DateTimeField(blank = True , null = True , verbose_name = "Date d'archivage (facultative)")
+	archive = models.BooleanField(default = False)
 
 	def __str__(self):
 		return self.title
