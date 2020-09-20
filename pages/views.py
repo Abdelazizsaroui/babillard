@@ -70,6 +70,13 @@ def update_annonce(request, ann_id):
 		form = AnnonceForm(instance=ann)
 	return render(request, 'update_annonce.html', {'form': form, 'ann': ann})
 
+def delete_annonce(request, ann_id):
+	ann = Annonce.objects.get(id=ann_id)
+	if ann.page.user != request.user:
+		raise PermissionDenied
+	else:
+		ann.delete()
+	return redirect(reverse('page', kwargs={'page_id': ann.page.id}))
 
 def page(request, page_id):
 	page = Page.objects.get(id=page_id)

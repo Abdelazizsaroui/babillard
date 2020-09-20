@@ -33,6 +33,7 @@ urlpatterns = [
     path('annonce/<int:ann_id>/', pages_views.annonce, name='annonce'),
     path('annonce/<int:page_id>/new/', pages_views.create_annonce, name='create-annonce'),
     path('annonce/<int:ann_id>/update/', pages_views.update_annonce, name='update-annonce'),
+    path('annonce/<int:ann_id>/delete/', pages_views.delete_annonce, name='delete-annonce'),
     path('update-profile/', users_views.update_profile, name='update_profile'),
     path('search/', pages_views.search, name='search'),
     path('abonn/<int:page_id>/', pages_views.abonn, name='abonn'),
