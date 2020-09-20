@@ -12,7 +12,7 @@
 	    <div class="col-md-9">
 	      <form method="POST">
 	      	{% csrf_token %}
-	      	<p style="font-weight: 600;">Page : <a href="">{{page.name}} [ {{page.code}} ]</a></p>
+	      	<p style="font-weight: 600;">Page : <a href="{% url 'page' page.id %}">{{page.name}} [ {{page.code}} ]</a></p>
 	      	{{ form|crispy }}
 	      	<div class="text-center">
 	      	<button class="btn btn-primary" type="submit">Publier</button>
@@ -22,3 +22,15 @@
 		</div>
 
 {% endblock main %}
+
+{% block script %}
+
+	<script>
+		
+		$(document).ready(function(){
+			$("#id_date_archive").attr('type', 'date');
+		});
+
+	</script>
+
+{% endblock script %}

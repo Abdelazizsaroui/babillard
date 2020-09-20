@@ -1,5 +1,6 @@
 import string
 import random
+import datetime
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.core.exceptions import PermissionDenied
@@ -14,7 +15,7 @@ def home(request):
 	user = request.user
 	if user.is_authenticated:
 		pages = user.abonn.all()
-		annonces = Annonce.objects.filter(page__in=pages)
+		annonces = Annonce.objects.filter(page__in=pages, archive=False)
 		return render(request, 'home.html', {'annonces': annonces})
 	return render(request, 'home.html')
 
