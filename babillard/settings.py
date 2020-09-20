@@ -171,3 +171,8 @@ SUMMERNOTE_CONFIG = {
 
 #this is required by summernote for django 3
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'postmaster@loool.wtf'
+EMAIL_HOST_PASSWORD = 'f88ac6078f0e706450b0774b81e196ce-468bde97-bde64e2c'
