@@ -59,5 +59,5 @@ urlpatterns = [
     path('abonn/<int:page_id>/', pages_views.abonn, name='abonn'),
     path('add-memb/<int:page_id>/', pages_views.add_memb, name='add-memb')
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
