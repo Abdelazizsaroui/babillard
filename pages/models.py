@@ -20,7 +20,7 @@ class Annonce(models.Model):
 	content = models.TextField(verbose_name="Contenu")
 	page = models.ForeignKey(Page, on_delete=models.CASCADE)
 	date_posted = models.DateTimeField(auto_now_add=True)
-	date_archive = models.DateTimeField(blank = True , null = True , verbose_name = "Date d'archivage (facultative)")
+	date_archive = models.DateTimeField(blank = True , null = True , verbose_name = "Date d'archivage (facultative)", help_text="Une annonce archivée ne sera plus visible que pour vous (dans l'archive de la page)")
 	archive = models.BooleanField(default = False)
 
 	def __str__(self):
