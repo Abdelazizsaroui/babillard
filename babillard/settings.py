@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 # python3 manage.py graph_models -a -o myapp_models.png
 
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,7 +44,6 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'django_summernote',
-    # 'django_extensions',
 
     'users',
     'pages'
@@ -143,7 +144,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # MEDIA_LOCATION = "media"
 
 MEDIA_URL = '/media/'
@@ -176,3 +177,13 @@ EMAIL_HOST = ""
 EMAIL_PORT = 587
 EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = ""
+
+sentry_sdk.init(
+    dsn="https://d48ec04f81934e8c832c4d7a82a2c8d0@o376562.ingest.sentry.io/5435914",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
