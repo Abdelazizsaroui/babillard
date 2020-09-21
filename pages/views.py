@@ -132,3 +132,11 @@ def add_memb(request, page_id):
 					pass
 	return redirect(request.META['HTTP_REFERER'])
 
+def archive(request, ann_id):
+	ann = Annonce.objects.get(id=ann_id)
+	action = "activée" if ann.archive else "archivée"
+	ann.archive = False if ann.archive else True
+	ann.save()
+	messages.success(request, f"L'annonce <strong>{ann.title}</strong> a été {action}!")
+	return redirect(request.META['HTTP_REFERER'])
+
