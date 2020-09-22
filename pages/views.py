@@ -87,7 +87,11 @@ def page(request, page_id):
 		return redirect('login')
 	if page.private and request.user not in page.members.all():
 		raise PermissionDenied
-	return render(request, 'page.html', {'page': page})
+	if page.user == request.user:
+		template = "page_back.html"
+	else:
+		template = "page_front.html"
+	return render(request, template, {'page': page})
 
 def annonce(request, ann_id):
 	annonce = Annonce.objects.get(id=ann_id)
